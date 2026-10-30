@@ -38,4 +38,7 @@ python run_tests.py 1       # only Part 1
 python run_tests.py 2       # only Part 2
 python run_tests.py quick   # both parts, skips program_10
 ```
+
+Running all tests may take several minutes.
+
 Each part prints the total, passed, and failed counts. Failed tests are listed by program name (and input name for Part 2).
