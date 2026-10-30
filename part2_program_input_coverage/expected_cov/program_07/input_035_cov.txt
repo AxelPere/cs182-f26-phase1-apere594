@@ -1,0 +1,18 @@
+     1: import sys
+#    2: 
+     3: if len(sys.argv) < 2:
+     4:     result = -1
+#    5: else:
+#    6:     collection = [int(x) for x in sys.argv[1:]]
+#    7: 
+#    8:     length = len(collection)
+#    9:     while True:
+#   10:         swapped = False
+#   11:         for i in range(length - 1):
+#   12:             if collection[i] > collection[i + 1]:
+#   13:                 collection[i], collection[i + 1] = collection[i + 1], collection[i]
+#   14:                 swapped = True
+#   15:         if not swapped:
+#   16:             break
+#   17: 
+#   18:     result = collection

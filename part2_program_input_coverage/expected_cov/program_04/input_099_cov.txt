@@ -1,0 +1,15 @@
+     1: import sys
+     2: from string import ascii_lowercase, ascii_uppercase
+#    3: 
+     4: if len(sys.argv) != 2:
+#    5:     result = ""
+#    6: else:
+     7:     sentence = sys.argv[1]
+#    8: 
+     9:     if not sentence:
+#   10:         result = ""
+#   11:     else:
+    12:         lower_to_upper = dict(zip(ascii_lowercase, ascii_uppercase))
+    13:         first_char = sentence[0]
+    14:         capitalized_first = lower_to_upper.get(first_char, first_char)
+    15:         result = capitalized_first + sentence[1:]

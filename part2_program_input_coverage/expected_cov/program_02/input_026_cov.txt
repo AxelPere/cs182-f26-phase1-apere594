@@ -1,0 +1,27 @@
+     1: import sys
+     2: import math
+#    3: 
+     4: if len(sys.argv) != 2:
+#    5:     result = -1
+#    6: else:
+     7:     n = int(sys.argv[1])
+#    8: 
+     9:     if n <= 0:
+#   10:         result = -1
+#   11:     else:
+    12:         div = 1
+    13:         temp = 1
+    14:         while n % 2 == 0:
+    15:             temp += 1
+    16:             n = int(n / 2)
+    17:         div *= temp
+    18:         for i in range(3, int(math.sqrt(n)) + 1, 2):
+#   19:             temp = 1
+#   20:             while n % i == 0:
+#   21:                 temp += 1
+#   22:                 n = int(n / i)
+#   23:             div *= temp
+    24:         if n > 1:
+    25:             div *= 2
+#   26: 
+    27:         result = div

@@ -1,0 +1,78 @@
+# of nodes = 16
+NODE 1: line 1 - 2
+import sys
+from random import randrange
+
+NODE 2: line 4 - 4
+if len(sys.argv) < 2:
+
+NODE 4: line 5 - 5
+result = -1
+
+NODE 6: line 7 - 7
+collection = [int(x) for x in sys.argv[1:]]
+
+NODE 8: line 9 - 9
+if len(collection) < 2:
+
+NODE 10: line 10 - 10
+result = collection
+
+NODE 12: line 12 - 12
+stack = [(0, len(collection) - 1)]
+
+NODE 14: line 14 - 14
+while stack:
+
+NODE 15: line 15 - 15
+low, high = stack.pop()
+
+NODE 18: line 16 - 16
+if low < high:
+
+NODE 19: line 17 - 21
+pivot_index = randrange(low, high + 1)
+collection[pivot_index], collection[high] = collection[high], collection[
+    pivot_index]
+pivot = collection[high]
+i = low - 1
+
+NODE 22: line 22 - 22
+for j in range(low, high):
+
+NODE 24: line 23 - 23
+if collection[j] <= pivot:
+
+NODE 26: line 24 - 25
+i += 1
+collection[i], collection[j] = collection[j], collection[i]
+
+NODE 25: line 26 - 30
+collection[i + 1], collection[high] = collection[high], collection[i + 1]
+pivot_final = i + 1
+stack.append((low, pivot_final - 1))
+stack.append((pivot_final + 1, high))
+
+NODE 16: line 32 - 32
+result = collection
+
+# of edges = 19
+EDGE: node 1 -> node 2
+EDGE: node 2 -> node 4, when (len(sys.argv) < 2)
+EDGE: node 2 -> node 6, when (len(sys.argv) >= 2)
+EDGE: node 6 -> node 8
+EDGE: node 8 -> node 10, when (len(collection) < 2)
+EDGE: node 8 -> node 12, when (len(collection) >= 2)
+EDGE: node 12 -> node 14
+EDGE: node 14 -> node 15, when stack
+EDGE: node 14 -> node 16, when (not stack)
+EDGE: node 15 -> node 18
+EDGE: node 18 -> node 14, when (low >= high)
+EDGE: node 18 -> node 19, when (low < high)
+EDGE: node 19 -> node 22
+EDGE: node 22 -> node 24, when range(low, high)
+EDGE: node 22 -> node 25
+EDGE: node 24 -> node 22, when (collection[j] > pivot)
+EDGE: node 24 -> node 26, when (collection[j] <= pivot)
+EDGE: node 25 -> node 14
+EDGE: node 26 -> node 22

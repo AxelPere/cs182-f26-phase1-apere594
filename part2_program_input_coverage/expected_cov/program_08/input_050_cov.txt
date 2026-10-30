@@ -1,0 +1,35 @@
+     1: import sys
+#    2: 
+     3: if len(sys.argv) < 2:
+#    4:     result = -1
+#    5: else:
+     6:     collection = [int(x) for x in sys.argv[1:]]
+#    7: 
+#    8:     # get some information about the collection
+     9:     coll_len = len(collection)
+    10:     coll_max = max(collection)
+    11:     coll_min = min(collection)
+#   12: 
+#   13:     # create the counting array
+    14:     counting_arr_length = coll_max + 1 - coll_min
+    15:     counting_arr = [0] * counting_arr_length
+#   16: 
+#   17:     # count how much a number appears in the collection
+    18:     for number in collection:
+    19:         counting_arr[number - coll_min] += 1
+#   20: 
+#   21:     # sum each position with it's predecessors. now, counting_arr[i] tells
+#   22:     # us how many elements <= i has in the collection
+    23:     for i in range(1, counting_arr_length):
+    24:         counting_arr[i] = counting_arr[i] + counting_arr[i - 1]
+#   25: 
+#   26:     # create the output collection
+    27:     ordered = [0] * coll_len
+#   28: 
+#   29:     # place the elements in the output, respecting the original order (stable
+#   30:     # sort) from end to begin, updating counting_arr
+    31:     for i in reversed(range(coll_len)):
+    32:         ordered[counting_arr[collection[i] - coll_min] - 1] = collection[i]
+    33:         counting_arr[collection[i] - coll_min] -= 1
+#   34: 
+    35:     result = ordered

@@ -1,0 +1,68 @@
+# of nodes = 15
+NODE 1: line 1 - 2
+import sys
+import math
+
+NODE 2: line 4 - 4
+if len(sys.argv) != 2:
+
+NODE 4: line 5 - 5
+result = -1
+
+NODE 6: line 7 - 7
+n = int(sys.argv[1])
+
+NODE 8: line 9 - 9
+if n <= 0:
+
+NODE 9: line 10 - 10
+result = -1
+
+NODE 11: line 12 - 12
+factors = []
+
+NODE 12: line 14 - 14
+while n % 2 == 0:
+
+NODE 13: line 15 - 16
+factors.append(2)
+n //= 2
+
+NODE 14: line 18 - 18
+for i in range(3, int(math.sqrt(n)) + 1, 2):
+
+NODE 19: line 19 - 19
+while n % i == 0:
+
+NODE 21: line 20 - 21
+factors.append(i)
+n //= i
+
+NODE 20: line 23 - 23
+if n > 2:
+
+NODE 24: line 24 - 24
+factors.append(n)
+
+NODE 25: line 26 - 26
+result = factors
+
+# of edges = 18
+EDGE: node 1 -> node 2
+EDGE: node 2 -> node 4, when (len(sys.argv) != 2)
+EDGE: node 2 -> node 6, when (len(sys.argv) == 2)
+EDGE: node 6 -> node 8
+EDGE: node 8 -> node 9, when (n <= 0)
+EDGE: node 8 -> node 11, when (n > 0)
+EDGE: node 11 -> node 12
+EDGE: node 12 -> node 13, when (n % 2 == 0)
+EDGE: node 12 -> node 14, when (n % 2 != 0)
+EDGE: node 13 -> node 12
+EDGE: node 14 -> node 19, when range(3, int(math.sqrt(n)) + 1, 2)
+EDGE: node 14 -> node 20
+EDGE: node 19 -> node 14, when (n % i != 0)
+EDGE: node 19 -> node 21, when (n % i == 0)
+EDGE: node 20 -> node 24, when (n > 2)
+EDGE: node 20 -> node 25, when (n <= 2)
+EDGE: node 21 -> node 19
+EDGE: node 24 -> node 25

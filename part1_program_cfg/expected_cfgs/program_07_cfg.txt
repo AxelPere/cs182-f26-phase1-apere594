@@ -1,0 +1,55 @@
+# of nodes = 12
+NODE 1: line 1 - 1
+import sys
+
+NODE 2: line 3 - 3
+if len(sys.argv) < 2:
+
+NODE 4: line 4 - 4
+result = -1
+
+NODE 6: line 6 - 8
+collection = [int(x) for x in sys.argv[1:]]
+length = len(collection)
+
+NODE 9: line 9 - 9
+while True:
+
+NODE 10: line 10 - 10
+swapped = False
+
+NODE 12: line 11 - 11
+for i in range(length - 1):
+
+NODE 14: line 12 - 12
+if collection[i] > collection[i + 1]:
+
+NODE 16: line 13 - 14
+collection[i], collection[i + 1] = collection[i + 1], collection[i]
+swapped = True
+
+NODE 15: line 15 - 15
+if not swapped:
+
+NODE 18: line 16 - 16
+break
+
+NODE 11: line 18 - 18
+result = collection
+
+# of edges = 15
+EDGE: node 1 -> node 2
+EDGE: node 2 -> node 4, when (len(sys.argv) < 2)
+EDGE: node 2 -> node 6, when (len(sys.argv) >= 2)
+EDGE: node 6 -> node 9
+EDGE: node 9 -> node 10, when (True)
+EDGE: node 9 -> node 11, when (False)
+EDGE: node 10 -> node 12
+EDGE: node 12 -> node 14, when range(length - 1)
+EDGE: node 12 -> node 15
+EDGE: node 14 -> node 12, when (collection[i] <= collection[i + 1])
+EDGE: node 14 -> node 16, when (collection[i] > collection[i + 1])
+EDGE: node 15 -> node 9, when (not not swapped)
+EDGE: node 15 -> node 18, when (not swapped)
+EDGE: node 16 -> node 12
+EDGE: node 18 -> node 11

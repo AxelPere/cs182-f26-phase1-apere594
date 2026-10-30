@@ -1,0 +1,32 @@
+# of nodes = 7
+NODE 1: line 1 - 1
+import sys
+
+NODE 2: line 3 - 3
+if len(sys.argv) != 2:
+
+NODE 4: line 4 - 4
+result = -1
+
+NODE 6: line 6 - 8
+i = int(sys.argv[1])
+i_plus_1 = i + 1
+
+NODE 8: line 10 - 10
+while True:
+
+NODE 9: line 11 - 11
+i_plus_1 += 1
+
+NODE 10: line 13 - 14
+i_minus_1 = i - 1
+result = i_minus_1
+
+# of edges = 7
+EDGE: node 1 -> node 2
+EDGE: node 2 -> node 4, when (len(sys.argv) != 2)
+EDGE: node 2 -> node 6, when (len(sys.argv) == 2)
+EDGE: node 6 -> node 8
+EDGE: node 8 -> node 9, when (True)
+EDGE: node 8 -> node 10, when (False)
+EDGE: node 9 -> node 8

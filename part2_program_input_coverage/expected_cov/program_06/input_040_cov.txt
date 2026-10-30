@@ -1,0 +1,11 @@
+     1: import sys
+#    2: 
+     3: if len(sys.argv) != 2:
+#    4:     result = 0
+#    5: else:
+     6:     input_str = sys.argv[1]
+     7:     total = 0
+     8:     for char in input_str:
+     9:         if char.isdigit():
+#   10:             total += int(char)
+    11:     result = total

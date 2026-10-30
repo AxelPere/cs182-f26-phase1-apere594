@@ -1,0 +1,58 @@
+# of nodes = 12
+NODE 1: line 1 - 1
+import sys
+
+NODE 2: line 3 - 3
+if len(sys.argv) < 2:
+
+NODE 4: line 4 - 4
+result = -1
+
+NODE 6: line 6 - 15
+collection = [int(x) for x in sys.argv[1:]]
+coll_len = len(collection)
+coll_max = max(collection)
+coll_min = min(collection)
+counting_arr_length = coll_max + 1 - coll_min
+counting_arr = [0] * counting_arr_length
+
+NODE 11: line 18 - 18
+for number in collection:
+
+NODE 12: line 19 - 19
+counting_arr[number - coll_min] += 1
+
+NODE 13: line 23 - 23
+for i in range(1, counting_arr_length):
+
+NODE 15: line 24 - 24
+counting_arr[i] = counting_arr[i] + counting_arr[i - 1]
+
+NODE 16: line 27 - 27
+ordered = [0] * coll_len
+
+NODE 17: line 31 - 31
+for i in reversed(range(coll_len)):
+
+NODE 20: line 32 - 33
+ordered[counting_arr[collection[i] - coll_min] - 1] = collection[i]
+counting_arr[collection[i] - coll_min] -= 1
+
+NODE 21: line 35 - 35
+result = ordered
+
+# of edges = 14
+EDGE: node 1 -> node 2
+EDGE: node 2 -> node 4, when (len(sys.argv) < 2)
+EDGE: node 2 -> node 6, when (len(sys.argv) >= 2)
+EDGE: node 6 -> node 11
+EDGE: node 11 -> node 12, when collection
+EDGE: node 11 -> node 13
+EDGE: node 12 -> node 11
+EDGE: node 13 -> node 15, when range(1, counting_arr_length)
+EDGE: node 13 -> node 16
+EDGE: node 15 -> node 13
+EDGE: node 16 -> node 17
+EDGE: node 17 -> node 20, when reversed(range(coll_len))
+EDGE: node 17 -> node 21
+EDGE: node 20 -> node 17

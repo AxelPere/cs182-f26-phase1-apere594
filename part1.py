@@ -1,45 +1,83 @@
+# Part 1: print the control flow graph of a Python program
+# python part1.py <program.py>
+
+import ast
 import sys
-from py2cfg.builder import CFGBuilder
+import warnings
 
+warnings.filterwarnings("ignore")
 
-def generate_cfg(file_path):
-  builder = CFGBuilder()
-  cfg = builder.parse_file(file_path)
+from py2cfg import CFGBuilder
 
-  # Sort nodes by ID for consistent output
-  nodes = sorted(cfg.nodes, key=lambda n: n.id)
-  print(f"# of nodes = {len(nodes)}")
+file_path = sys.argv[1]
+cfg = CFGBuilder().build_from_file("main", file_path)
 
-  for node in nodes:
-    start = getattr(node, "start_line", getattr(node, "lineno", 1))
-    end = getattr(node, "end_line", start)
-    print(f"NODE {node.id}: line {start} - {end}")
-    # Print the source code lines corresponding to this node
-    source_code = getattr(node, "source", "")
-    print(source_code.strip())
+# find every block by following the arrows from the first block
+all_blocks = {}
+to_visit = [cfg.entryblock]
 
-  # Edges extraction
-  edges = cfg.edges
-  print(f"# of edges = {len(edges)}")
+while len(to_visit) > 0:
+    block = to_visit.pop()
+    if block.id in all_blocks:
+        continue
+    all_blocks[block.id] = block
+    for link in block.exits:
+        to_visit.append(link.target)
 
-  for edge in edges:
-    # Handle different py2cfg edge representations robustly
-    source_id = (
-        edge.source.id if hasattr(edge, "source") else edge[0].id
-    )
-    target_id = (
-        edge.target.id if hasattr(edge, "target") else edge[1].id
-    )
-    condition = getattr(edge, "conditional", getattr(edge, "condition", None))
+# keep only the blocks that have code in them
+nodes = []
+for block in all_blocks.values():
+    if len(block.statements) > 0:
+        nodes.append(block)
 
-    if condition:
-      print(f"EDGE: node {source_id} -> node {target_id}, when ({condition})")
-    else:
-      print(f"EDGE: node {source_id} -> node {target_id}")
+# sort the nodes by starting line
+nodes.sort(key=lambda block: block.at())
 
+node_ids = []
+for node in nodes:
+    node_ids.append(node.id)
 
-if __name__ == "__main__":
-  if len(sys.argv) < 2:
-    print("Usage: python part1.py <path_to_python_file.py>")
-    sys.exit(1)
-  generate_cfg(sys.argv[1])
+# keep only the edges between nodes that have code
+edges = []
+for node in nodes:
+    for link in node.exits:
+        if link.target.id in node_ids:
+            edges.append(link)
+
+# sort the edges by source, then target
+edges.sort(key=lambda link: (link.source.id, link.target.id))
+
+lines = []
+
+lines.append("# of nodes = " + str(len(nodes)))
+for node in nodes:
+    start = str(node.at())
+    end = str(node.end())
+    lines.append("NODE " + str(node.id) + ": line " + start + " - " + end)
+    lines.append(node.get_source().rstrip("\n"))
+    lines.append("")
+
+lines.append("# of edges = " + str(len(edges)))
+for link in edges:
+    source = str(link.source.id)
+    target = str(link.target.id)
+    text = "EDGE: node " + source + " -> node " + target
+
+    if link.exitcase is not None:
+        condition = link.get_exitcase().strip()
+
+        # calls and names do not get parentheses
+        no_parens = (ast.Call, ast.Name, ast.Attribute, ast.Subscript)
+
+        has_parens = False
+        if condition.startswith("(") and condition.endswith(")"):
+            has_parens = True
+
+        if not isinstance(link.exitcase, no_parens) and not has_parens:
+            condition = "(" + condition + ")"
+
+        text = text + ", when " + condition
+
+    lines.append(text)
+
+sys.stdout.write("\n".join(lines))

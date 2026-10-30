@@ -1,0 +1,12 @@
+     1: import sys
+#    2: 
+     3: if len(sys.argv) != 2:
+#    4:     result = 0
+#    5: else:
+     6:     input_string = sys.argv[1]
+#    7: 
+     8:     if not input_string:
+#    9:         result = 0
+#   10:     else:
+    11:         vowels = "aeiouAEIOU"
+    12:         result = sum(1 for char in input_string if char in vowels)

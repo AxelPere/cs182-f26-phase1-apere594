@@ -1,0 +1,31 @@
+     1: import sys
+#    2: 
+     3: if len(sys.argv) < 2:
+#    4:     result = -1
+#    5: else:
+     6:     collection = [int(x) for x in sys.argv[1:]]
+#    7: 
+     8:     if len(collection) < 2:
+     9:         result = collection
+#   10:     else:
+#   11:         stack = [(0, len(collection) - 1)]
+#   12: 
+#   13:         while stack:
+#   14:             low, high = stack.pop()
+#   15:             if low < high:
+#   16:                 pivot_index = low
+#   17:                 collection[pivot_index], collection[high] = collection[high], collection[pivot_index]
+#   18:                 pivot = collection[high]
+#   19: 
+#   20:                 i = low - 1
+#   21:                 for j in range(low, high):
+#   22:                     if collection[j] <= pivot:
+#   23:                         i += 1
+#   24:                         collection[i], collection[j] = collection[j], collection[i]
+#   25:                 collection[i + 1], collection[high] = collection[high], collection[i + 1]
+#   26:                 pivot_final = i + 1
+#   27: 
+#   28:                 stack.append((low, pivot_final - 1))
+#   29:                 stack.append((pivot_final + 1, high))
+#   30: 
+#   31:         result = collection

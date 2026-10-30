@@ -1,0 +1,36 @@
+# of nodes = 8
+NODE 1: line 1 - 1
+import sys
+
+NODE 2: line 3 - 3
+if len(sys.argv) != 2:
+
+NODE 4: line 4 - 4
+result = 0
+
+NODE 6: line 6 - 7
+input_str = sys.argv[1]
+total = 0
+
+NODE 7: line 8 - 8
+for char in input_str:
+
+NODE 8: line 9 - 9
+if char.isdigit():
+
+NODE 11: line 10 - 10
+total += int(char)
+
+NODE 9: line 11 - 11
+result = total
+
+# of edges = 9
+EDGE: node 1 -> node 2
+EDGE: node 2 -> node 4, when (len(sys.argv) != 2)
+EDGE: node 2 -> node 6, when (len(sys.argv) == 2)
+EDGE: node 6 -> node 7
+EDGE: node 7 -> node 8, when input_str
+EDGE: node 7 -> node 9
+EDGE: node 8 -> node 7, when (not char.isdigit())
+EDGE: node 8 -> node 11, when char.isdigit()
+EDGE: node 11 -> node 7

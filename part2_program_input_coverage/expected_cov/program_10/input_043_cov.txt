@@ -1,0 +1,14 @@
+     1: import sys
+#    2: 
+     3: if len(sys.argv) != 2:
+#    4:     result = -1
+#    5: else:
+     6:     i = int(sys.argv[1])
+#    7: 
+     8:     i_plus_1 = i + 1
+#    9: 
+    10:     while True:
+    11:         i_plus_1 += 1
+#   12: 
+#   13:     i_minus_1 = i - 1
+#   14:     result = i_minus_1

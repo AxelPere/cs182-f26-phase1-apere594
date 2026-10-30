@@ -1,0 +1,33 @@
+# of nodes = 7
+NODE 1: line 1 - 2
+import sys
+from string import ascii_lowercase, ascii_uppercase
+
+NODE 2: line 4 - 4
+if len(sys.argv) != 2:
+
+NODE 4: line 5 - 5
+result = ''
+
+NODE 6: line 7 - 7
+sentence = sys.argv[1]
+
+NODE 7: line 9 - 9
+if not sentence:
+
+NODE 8: line 10 - 10
+result = ''
+
+NODE 10: line 12 - 15
+lower_to_upper = dict(zip(ascii_lowercase, ascii_uppercase))
+first_char = sentence[0]
+capitalized_first = lower_to_upper.get(first_char, first_char)
+result = capitalized_first + sentence[1:]
+
+# of edges = 6
+EDGE: node 1 -> node 2
+EDGE: node 2 -> node 4, when (len(sys.argv) != 2)
+EDGE: node 2 -> node 6, when (len(sys.argv) == 2)
+EDGE: node 6 -> node 7
+EDGE: node 7 -> node 8, when (not sentence)
+EDGE: node 7 -> node 10, when (not not sentence)
